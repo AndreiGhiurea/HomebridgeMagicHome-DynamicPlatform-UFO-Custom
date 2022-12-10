@@ -16,7 +16,7 @@
   "accessories": [],
   "platforms": [
     {
-      "platform": "homebridge-magichome-dynamic-platform",
+      "platform": "homebridge-magichome-dynamic-platform-magic-home-ufo-andrei-custom",
       "name": "magicHome",
       "pruning": {
         "pruneMissingCachedAccessories": false,
@@ -31,7 +31,9 @@
       },
       "deviceManagement": {
         "blacklistOrWhitelist": "blacklist",
-        "blacklistedUniqueIDs": [""]
+        "blacklistedUniqueIDs": [
+          ""
+        ]
       },
       "advancedOptions": {
         "namesWithMacAddress": true

@@ -8,6 +8,32 @@ const COMMAND_QUERY_STATE: Uint8Array = Uint8Array.from([0x81, 0x8a, 0x8b]);
 
 const PORT = 5577;
 
+function waitForData(emitter: net.Socket, timeout: number) {
+  return new Promise((resolve, reject) => {
+    let complete = false;
+    let buff: Buffer;
+
+    const waitTimeout: any = setTimeout(() => {
+      complete = true;
+      resolve(null);
+    }, timeout);
+
+    emitter.on('data', (args: any) => {
+      clearTimeout(waitTimeout);
+      if (!buff) {
+        buff = args;
+      } else {
+        buff = Buffer.concat([buff, args]);
+      }
+
+      if (buff.length >= 14) {
+        complete = true;
+        resolve(buff);
+      }
+    });
+  });
+}
+
 function wait(emitter: net.Socket, eventName: string, timeout: number) {
 
   return new Promise((resolve, reject) => {
@@ -127,7 +153,7 @@ export class Transport {
   }
 
   async read(_timeout = 200) {
-    const data = await wait(this.socket, 'data', _timeout);
+    const data = await waitForData(this.socket, _timeout);
     return data;
   }
 

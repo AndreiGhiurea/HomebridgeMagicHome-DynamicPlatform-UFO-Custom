@@ -1,5 +1,5 @@
 {
-    "pluginAlias": "homebridge-magichome-dynamic-platform",
+    "pluginAlias": "homebridge-magichome-dynamic-platform-magic-home-ufo-andrei-custom",
     "pluginType": "platform",
     "singular": true,
     "schema": {

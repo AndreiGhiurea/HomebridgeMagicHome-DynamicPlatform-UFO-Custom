@@ -63,7 +63,7 @@ export class HomebridgeMagichomeDynamicPlatform implements DynamicPlatformPlugin
     }
 
     //this.logs = getLogger();
-    this.logs.warn('Finished initializing homebridge-magichome-dynamic-platform %o', loadJson<any>(join(__dirname, '../package.json'), {}).version);
+    this.logs.warn('Finished initializing homebridge-magichome-dynamic-platform-magic-home-ufo-andrei-custom %o', loadJson<any>(join(__dirname, '../package.json'), {}).version);
     this.logs.info('If this plugin brings you joy, consider visiting GitHub and giving it a ⭐.');
 
     // When this event is fired it means Homebridge has restored all cached accessories from disk.
@@ -91,7 +91,7 @@ export class HomebridgeMagichomeDynamicPlatform implements DynamicPlatformPlugin
   configureAccessory(accessory: MagicHomeAccessory) {
 
     this.logs.debug('%o - Loading accessory from cache...', this.count++, accessory.context.device.displayName);
-    // set cached accessory as not recently seen 
+    // set cached accessory as not recently seen
     // if found later to be a match with a discovered device, will change to true
     accessory.context.device.restartsSinceSeen++;
     accessory.context.pendingRegistration = true;
@@ -102,7 +102,7 @@ export class HomebridgeMagichomeDynamicPlatform implements DynamicPlatformPlugin
   /**
    * Accessories are added by one of three Methods:
    * Method One: New devices that were seen after scanning the network and are registered for the first time
-   * Method Two: Cached devices that were seen after scanning the network and are added while checking for ip discrepancies 
+   * Method Two: Cached devices that were seen after scanning the network and are added while checking for ip discrepancies
    * Method Three: Cached devices that were not seen after scanning the network but are still added with a warning to the user
    */
   async discoverDevices(dgb: boolean | null) {
@@ -153,7 +153,7 @@ export class HomebridgeMagichomeDynamicPlatform implements DynamicPlatformPlugin
 
           // Check if cached device complies to the device model,
           if (!isValidDeviceModel(existingAccessory.context.device, null)) {
-            //`Device "${uniqueId}" is online, but has outdated data model. Attempting to update it. 
+            //`Device "${uniqueId}" is online, but has outdated data model. Attempting to update it.
             this.logs.debug(`The known device "${deviceDiscovered.uniqueId}" seen during discovery has outdated data model (pre v1.8.6). Rebuilding device. `, deviceDiscovered);
 
 
@@ -385,11 +385,11 @@ export class HomebridgeMagichomeDynamicPlatform implements DynamicPlatformPlugin
  * Accessory Generation Method One: UUID has not been seen before. Register new accessory.
  * Accessories must only be registered once, previously created accessories
  * must not be registered again to prevent "duplicate UUID" errors.
- * @param deviceDiscovered 
- * @param generatedUUID 
+ * @param deviceDiscovered
+ * @param generatedUUID
  */
   async createNewAccessory(deviceDiscovered: IDeviceDiscoveredProps, generatedUUID): Promise<boolean> {
-    const unsupportedModels: string[] = ['000-0000']; //AK001-ZJ210 is suported... 
+    const unsupportedModels: string[] = ['000-0000']; //AK001-ZJ210 is suported...
 
     const deviceQueryData: IDeviceQueriedProps = await this.determineController(deviceDiscovered);
 
@@ -442,8 +442,8 @@ export class HomebridgeMagichomeDynamicPlatform implements DynamicPlatformPlugin
   /**
  * Accessory Generation Method Two: UUID has been seen before. Load from cache.
  * Test if seen accessory "is allowed" and that the IP address is identical
- * @param deviceDiscovered 
- * @param existingAccessory 
+ * @param deviceDiscovered
+ * @param existingAccessory
  */
   registerExistingAccessory(deviceDiscovered, existingAccessory: MagicHomeAccessory): boolean {
 
@@ -508,8 +508,8 @@ export class HomebridgeMagichomeDynamicPlatform implements DynamicPlatformPlugin
     this.logs.debug(`
     Controller Logic Type: ${device.lightParameters?.controllerLogicType}
     Model: ${device.modelNumber}
-    Unique ID: ${device.uniqueId} 
-    IP-Address: ${device.ipAddress} 
+    Unique ID: ${device.uniqueId}
+    IP-Address: ${device.ipAddress}
     Hardware Version: ${device.controllerHardwareVersion?.toString(16)}
     Firmware Version: ${device.controllerHardwareVersion?.toString(16)}\n`);
   }
